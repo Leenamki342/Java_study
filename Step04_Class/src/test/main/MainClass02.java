@@ -17,7 +17,7 @@ public class MainClass02 {
 		// car1 안에 들어있는 참조값을 이용해서 cc 라는 필드에 int type 참조값 대입
 		car1.cc=1000;
 		
-		// 
+		// new Car 에서 Car 은  하나의 type 인것이다.
 		Car car2=new Car();
 		car2.drive();
 		car2.name="소나타";
