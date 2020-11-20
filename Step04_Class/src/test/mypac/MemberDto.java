@@ -1,8 +1,12 @@
 package test.mypac;
 
 public class MemberDto {
-	public int num;
-	public String name, addr;
+	// 필드의 접근 지정자를 private 로 하면 객체 내부에서만 접근 가능하고
+	// 외부에서 접근 불가능하다.
+	// 메소드의 기능이 망가지는걸 막기위해서 사용한다.
+	// public <=> private 서로 반대
+	private int num;
+	private String name, addr;
 	
 	/*
 	 * 	class 안에 들어올 수 있는것 1. 필드, 2. 메소드, 3. 생성자
@@ -18,4 +22,31 @@ public class MemberDto {
 		this.name=name;
 		this.addr=addr;
 	}
+	// 데이터 타입과 필드 명이 정해져있을때 set, get + ctrl + space를 하면 자동완성 된다.
+	// 또는 오른쪽 마우스 - Source - Ganerater setter and getter 을 하고
+	// 모두 체크하고 Ganerater 하면 한번에 만들어진다.
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddr() {
+		return addr;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	
 }
