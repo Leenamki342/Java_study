@@ -5,8 +5,9 @@ public class Computer {
 	private Cpu cpu;
 	private Memory memory;
 	private HardDisk hardDisk;
-	
-	// 생성자
+
+	// 생성자를 하나라도 정의하면 default 생성자는 사라지게 된다.
+	// 생성자 (생성자는 여러개 정의할 수 있다 / 오버로딩)
 	public Computer(Cpu cpu, Memory memory, HardDisk hardDisk) {
 		this.cpu=cpu;
 		this.memory=memory;

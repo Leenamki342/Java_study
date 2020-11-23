@@ -18,6 +18,7 @@ public class MemberDto {
 	// 기본 (default) 생성자를 명시적으로 정의하기
 	// 생성자는 얼마든지 다중 정의할수 있다.
 	// 다중 정의를 overloading 이라고 한다.
+	// 아무 값도 실행되지 않는 것이 기본 생성자이다.
 	public MemberDto() {
 		// 여기는 무슨값을 넣든 상관없지만 () 여기는 비워야함!!
 	}
