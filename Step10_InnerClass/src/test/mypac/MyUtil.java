@@ -17,8 +17,16 @@ public class MyUtil {
 			// 밖의 클래스명.this 이다.
 			System.out.println(MyUtil.this.owner);
 			MyUtil.this.test();
+			
+			// User 클래스에 동일한 이름의 필드와 메소드가 없다면
+			// MyUtil.this 생략가능
 			System.out.println(owner);
 			test();
+			
+			// 아래의 type 확인하기
+			MyUtil a=MyUtil.this;
+			User b=this;
+			
 		}
 	}
 }
