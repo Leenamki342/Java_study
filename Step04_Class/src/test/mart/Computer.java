@@ -15,10 +15,11 @@ public class Computer {
 	}
 	
 	// 메소드
-	public void playGame() {
+	public static void playGame() {
 		System.out.println("게임을 해요!");
 	}
 	public void sendEmail(String addr){
 		System.out.println(addr+" 이라는 주소로 이메일을 보내요!");
 	}
+	
 }
