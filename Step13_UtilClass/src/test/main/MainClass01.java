@@ -19,5 +19,7 @@ public class MainClass01 {
 		String line=scan.nextLine();
 		System.out.println("입력한 내용 : "+line);
 		System.out.println("main 메소드가 종료됩니다.");
+		
+		
 	}
 }
