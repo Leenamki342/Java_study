@@ -50,13 +50,16 @@ public class MainClass08 {
 		members.add(map3);
 		
 		// 4.
-		for(Map<String, Object> tmp:members) {
+		for( Map<String, Object> tmp : members) {
+			//번호
 			int num=(int)tmp.get("num");
+			//이름
 			String name=(String)tmp.get("name");
+			//주소
 			String addr=(String)tmp.get("addr");
-			System.out.println("번호 : "+tmp.get("num")+
-					", 이름 : "+tmp.get("name")+
-					", 주소 : "+tmp.get("addr"));
+			//출력하기
+			System.out.println("번호 : "+num+", 이름 : "+name+", 주소 : "+addr);
 		}
+		
 	}
 }
