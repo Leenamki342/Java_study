@@ -22,23 +22,72 @@ public class MainClass06 {
 		members.add(m3);
 		
 		// 방법 2
-		members.add(new MemberDto(1, "ㅁ", "ㄴ"));
-		members.add(new MemberDto(2, "a", "b"));
-		members.add(new MemberDto(3, "c", "d"));
+		// members.add(new MemberDto(1, "ㅁ", "ㄴ"));
+		// members.add(new MemberDto(2, "a", "b"));
+		// members.add(new MemberDto(3, "c", "d"));
 		
 		// 다른 방법 3
-		MemberDto mem1=new MemberDto();
-		mem1.setNum(1);
-		mem1.setName("김구라");
-		mem1.setAddr("노량진");
-		members.add(mem1);
-		
+		/*
+		 * MemberDto mem1=new MemberDto();
+		 * mem1.setNum(1);
+		 * mem1.setName("김구라");
+		 * mem1.setAddr("노량진");
+		 * members.add(mem1);
+		 */
 		
 		// 값 호출방법 두가지
 		// 방법 1
 		members.get(0).getNum();
+		
 		// 방법 2
-		mem1.getNum();
+		m1.getNum();
+		
+		/*
+		 *  members 에 들어있는 참조값을 이용해서
+		 *  반복문 돌면서 아래와 같은 형식으로 회원정보를 출력하기
+		 *  
+		 *  번호는 1 이름은 김구라 주소는 노량진
+		 *  .
+		 *  .
+		 */
+		
+		for(int i=0; i<members.size(); i++) {
+			String info="번호는 "+members.get(i).getNum()+
+					" 이름은 "+members.get(i).getName()+
+				  	" 주소는 "+members.get(i).getAddr();
+				System.out.println(info);			
+		}
+		
+		System.out.println("----------------------------");
+		
+		for(int i=0; i<members.size(); i++) {
+			System.out.println("번호는 "+members.get(i).getNum()+
+					" 이름은 "+members.get(i).getName()+
+					" 주소는 "+members.get(i).getAddr());
+		}
+		
+		System.out.println("----------------------------");
+		
+		for(int i=0; i<members.size(); i++) {
+			MemberDto tmp=members.get(i);
+			String info2="번호는 "+tmp.getNum()+
+					" 이름은 "+tmp.getName()+
+				  	" 주소는 "+tmp.getAddr();
+			System.out.println(info2);
+		}
+		
+		System.out.println("----------------------------");
+		// for(int i=0; i<members.size(); i++) {
+		// MemberDto tmp=members.get(i);
+		// 이걸 간략화하면 아래처럼 된다. // i 가 필요 없을 때 사용
+		// Generic type 을 확인하면됨.
+		for(MemberDto tmp:members) {
+			String info2="번호는 "+tmp.getNum()+
+					" 이름은 "+tmp.getName()+
+				  	" 주소는 "+tmp.getAddr();
+			System.out.println(info2);
+		}
+		
 		
 	}
 }

@@ -36,6 +36,11 @@ public class MainClass05 {
 			String tmp=names.get(i); // ArrayList의 Generic 클래스가 String 이기 때문에
 			System.out.println(i+" 번째 친구 이름 : "+tmp);
 		}
+		System.out.println("----------------------------");
+		
+		for(String tmp:names) {
+			System.out.println("친구 이름 : "+tmp);
+		};
 		
 	}
 }
