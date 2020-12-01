@@ -45,14 +45,45 @@ public class MainFrame extends JFrame implements ActionListener{
 		panel.add(label_result);
 		// 프레임에 페널을 북쪽에 배치
 		add(panel, BorderLayout.NORTH);
+		// 버튼에 리스너 등록
+		plusBtn.addActionListener(this);
+		minusBtn.addActionListener(this);
+		multipleBtn.addActionListener(this);
+		divisionBtn.addActionListener(this);
+		// 버튼의 액션 command 지정
+		plusBtn.setActionCommand("plus");
+		minusBtn.setActionCommand("minus");
+		multipleBtn.setActionCommand("multiple");
+		divisionBtn.setActionCommand("division");
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		// 입력한 숫자문자열을 실제 산술연산 가능한 숫자로 바꾸기
+		double num1=Double.parseDouble(inputNum1.getText());
+		double num2=Double.parseDouble(inputNum2.getText());
+		// 연산의 결과값을 저장할 변수를 만들고 0으로 초기화
+		double result=0;
+		// 눌러진 버튼의 액션 command 를 읽어와서
+		String command=e.getActionCommand();
+		// if 문으로 분기한다.
+		if(command.equals("plus")) {
+			result=num1+num2;
+		}else if(command.equals("minus")) {
+			result=num1-num2;
+		}else if(command.equals("multiple")) {
+			result=num1*num2;
+		}else if(command.equals("division")) {
+			result=num1/num2;
+		}
+		// 결과값을 JLabel 에 출력하기 ( 숫자를 문자열로 변경 후 출력 )
+		String strNum=Double.toString(result);
+		label_result.setText(Double.toString(result));
 	}
 	public static void main(String[] args) {
-		MainFrame f=new MainFrame("메인 프레임");
-		
+		MainFrame f=new MainFrame("계산기");
+		f.setBounds(100, 100, 800, 300);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setVisible(true);
 	}
 }
