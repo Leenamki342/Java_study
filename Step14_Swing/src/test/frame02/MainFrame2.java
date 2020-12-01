@@ -10,12 +10,19 @@ import javax.swing.JOptionPane;
 
 public class MainFrame2 extends JFrame{
 	// 필드에 ActionListener
-	ActionListener listener=new ActionListener() {
+	ActionListener sendListener=new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showMessageDialog(MainFrame2.this,"전송합니다.");
 			
 		}
+	};
+	ActionListener updateListener=(e)->{
+		JOptionPane.showMessageDialog(MainFrame2.this, "수정합니다.");
+	};
+	ActionListener deleteListener=(e)->{
+		JOptionPane.showMessageDialog(MainFrame2.this, "삭제합니다.");
 	};
 	
 	// 생성자
@@ -34,9 +41,9 @@ public class MainFrame2 extends JFrame{
 		add(deleteBtn);
 		
 		//버튼에 리스너 등록하기
-		sendBtn.addActionListener(listener);
-		updateBtn.addActionListener(listener);
-		deleteBtn.addActionListener(listener);
+		sendBtn.addActionListener(this.sendListener);
+		updateBtn.addActionListener(updateListener);
+		deleteBtn.addActionListener(deleteListener);
 		
 	}
 	
