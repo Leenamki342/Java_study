@@ -14,7 +14,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	public MainFrame(String title) {
 		super(title);
 		setLayout(new FlowLayout());
-		JButton genBtn=new JButton("0~9 랜덤 정수 얻기");
+		JButton genBtn=new JButton("0~1 랜덤 정수 얻기");
 		add(genBtn);
 		genBtn.addActionListener(this);
 	}
@@ -24,7 +24,7 @@ public class MainFrame extends JFrame implements ActionListener{
 		// 랜덤한 값을 얻기위한 객체 생성
 		Random ran=new Random();
 		// 0~9 사이의 랜덤한 정수
-		int ranNum=ran.nextInt(10);
+		int ranNum=ran.nextInt(3);
 		JOptionPane.showMessageDialog(this, "발생된 랜덤 정수 : "+ranNum);
 	}
 	
