@@ -9,9 +9,9 @@ package test.mypac;
  *     새로운 작업단위(스레드)가 시작된다.
  *     새로운 작업단위에서 할 작업을 run() 메소드 안에 코딩하면  된다. 
  */
-public class SubThread extends Thread{
+public class SubThread extends Thread{	// 1.
 	@Override
-	public void run() {
+	public void run() {  // 2.
 		try {
 			System.out.println("무언가 10초(오랜시간)이 걸리는 작업을 합니다.");
 			Thread.sleep(10000);
