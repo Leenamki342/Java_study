@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-/*
+/*   Text Input        Text Output
  *   InputStream  <=>  OutputStream
  *   InputStreamReader  <=>  OutputStreamWriter
  *   BufferedReader <=>  BufferedWriter
+ *   
+ *   문자열을 읽어 올때 File Reader
+ *   
  */
 
 public class MainClass04 {
