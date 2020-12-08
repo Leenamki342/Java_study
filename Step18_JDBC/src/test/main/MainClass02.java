@@ -6,14 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /*
- *  Java DataBase Connectivity (JDBC)
+ *  접속 ip 주소 : 14.63.164.99
+ *  아이디 : acorn01
+ *  비번 : tiger01
  *  
- *  java 에서 DB 연동을 하는 것을 JDBC 라고 한다.
- *  
- *  - oracle 에 연결하기 위해서는 드라이버가 들어 있는 ojdbc6.jar 파일이 필요하다 
- *  - 프로젝트 설정에서 ojdbc6.jar 를 사용할 준비를 해야한다. 
+ *  위 DB에 접속해서
+ *  emp 테이블의 내용중에서 사원번호(empno), 사원이름(ename), 부서번호(deptno)
+ *  를 select 해서 콘솔창에 출력하기.
+ *  단, 사원번호에 대해서 오름차순 정렬하기.
  */
-public class MainClass01 {
+public class MainClass02 {
 	public static void main(String[] args) {
 		//DB 연결 객체를 담을 지역변수
 		Connection conn=null;
@@ -30,12 +32,11 @@ public class MainClass01 {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		//Member 테이블의 내용을 select 해서 console  에 출력해보기
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			String sql="SELECT num,name,addr FROM member ORDER BY num ASC";
+			String sql="SELECT empno,ename,deptno FROM emp ORDER BY empno ASC";
 			// sql 문을 대신 실행해주는 PreparedStatement 객체의 참조값 얻어오기
 			pstmt=conn.prepareStatement(sql);
 			// SELECT 문 수행하고 결과 row 를 ResultSet 객체로 받아오기
@@ -43,12 +44,12 @@ public class MainClass01 {
 			// rs.next() 메소드가 false 를 리턴할때 까지 while 반복문 돌기
 			while(rs.next()) {
 				// 현재 커서가 위치한 곳에서 num 칼럼의 값을 정수로 얻어오기
-				int num=rs.getInt("num");
+				int empno=rs.getInt("empno");
 				// 현재 커서가 위치한 곳에서 name 칼럼의 값을 문자로 얻어내기
-				String name=rs.getString("name");
+				String ename=rs.getString("ename");
 				// 현재 커서가 위치한 곳에서 addr 칼럼의 값을 문자로 얻어내기
-				String addr=rs.getString("addr");
-				System.out.println(num+"|"+name+"|"+addr);
+				int deptno=rs.getInt("deptno");
+				System.out.println(empno+"|"+ename+"|"+deptno);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -59,8 +60,6 @@ public class MainClass01 {
 				if(conn!=null)conn.close();
 			}catch(Exception e) {}
 		}
-		
-		System.out.println("main 메소드가 종료 됩니다.");
+		System.out.println("main 메소드가 종료됩니다.");
 	}
 }
-
