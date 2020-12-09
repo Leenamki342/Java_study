@@ -62,5 +62,9 @@ public class MainClass01 {
 		
 		System.out.println("main 메소드가 종료 됩니다.");
 	}
+
+	String sql="UPDATE member"
+						+ " SET addr=?"
+						+ " WHERE num=?";
 }
 
