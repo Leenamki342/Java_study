@@ -42,7 +42,7 @@ public class MemberDao {
 		try { // try 안에서 만들어진 지역변수는 try 밖에서 사용 불가능하다.
 			conn=new DBConnect().getConn();
 			// 실행할 SELECT 문 작성
-			String sql="SELECT num,name,addr FROM member ORDER BY num ASC";
+			String sql="SELECT num,name,addr FROM member ORDER BY num DESC";
 			pstmt=conn.prepareStatement(sql);
 			// ? 에 바인딩 할게 있으면 하고 아니면 말고
 			rs=pstmt.executeQuery();
