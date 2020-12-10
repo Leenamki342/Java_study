@@ -27,7 +27,7 @@ public class DeptDao {
 		ResultSet rs=null;
 		try {
 			conn=new DBConnect().getConn();
-			String sql="SELECT deptno, dname, loc FROM dept ORDER BY ASC";
+			String sql="SELECT deptno,dname,loc FROM dept ORDER BY deptno DESC";
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
@@ -47,7 +47,7 @@ public class DeptDao {
 			}catch(Exception e) {}
 			
 		}
-		return null;
+		return list;
 	}
 	
 	// 2. select
@@ -58,7 +58,7 @@ public class DeptDao {
 		ResultSet rs=null;
 		try {
 			conn=new DBConnect().getConn();
-			String sql="SELECT dname, loc FROM dept WHERE deptno=?";
+			String sql="SELECT dname,loc FROM dept WHERE deptno=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, deptno);
 			rs=pstmt.executeQuery();
@@ -88,7 +88,9 @@ public class DeptDao {
 		int flag=0;
 		try {
 			conn=new DBConnect().getConn();
-			String sql="INSERT INTO dept (deptno, dname, loc) VALUES(member_seq.NEXTVAL, ?, ?)";
+			String sql="INSERT INTO dept"
+					+ " (deptno, dname, loc)"
+					+ " VALUES(dept_seq.NEXTVAL, ?, ?)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getDname());
 			pstmt.setString(2, dto.getLoc());
@@ -116,7 +118,7 @@ public class DeptDao {
 		int flag=0;
 		try {
 			conn=new DBConnect().getConn();
-			String sql="UPDATE dept SET dname=?loc=? WHERE deptno=?";
+			String sql="UPDATE dept SET dname=?, loc=? WHERE deptno=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getDname());
 			pstmt.setString(2, dto.getLoc());

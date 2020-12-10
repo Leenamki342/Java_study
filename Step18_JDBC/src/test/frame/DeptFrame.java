@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import test.dept.dto.DeptDto;
+import test.member.dto.MemberDto;
 import tset.dept.dao.DeptDao;
 
 /*
@@ -99,8 +100,6 @@ public class DeptFrame extends JFrame implements ActionListener{
 
 	//회원 목록을 테이블에 출력하는 메소드
 	public void printDept() {
-		//기존에 출력된 내용 초기화
-		model.setRowCount(0); // 0 개의 row 로 강제로 초기화 하고 
 		
 		//회원 목록 불러오기
 		DeptDao dao=new DeptDao();
@@ -116,7 +115,7 @@ public class DeptFrame extends JFrame implements ActionListener{
 			row.add(tmp.getLoc());
 	
 			model.addRow(row);
-		}
+		}	
 	}
 	
 	//메인 메소드
@@ -140,7 +139,7 @@ public class DeptFrame extends JFrame implements ActionListener{
 	public void deleteDept() {
 		//선택된 row 의 인덱스를 읽어온다.
 		int selectedIndex=table.getSelectedRow();
-		if(selectedIndex == -1) {
+		if(selectedIndex==-1) {
 			JOptionPane.showMessageDialog(this,"삭제할 row 를 선택해라");
 			return;//메소드를 여기서 끝내라 
 		}
@@ -194,7 +193,7 @@ public class DeptFrame extends JFrame implements ActionListener{
 				try {
 					// 5초 잠자다가
 					Thread.sleep(5000);
-				} catch (InterruptedException e) {
+				}catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				// 화면 업데이트

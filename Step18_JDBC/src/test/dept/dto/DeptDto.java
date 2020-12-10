@@ -2,12 +2,12 @@ package test.dept.dto;
 
 public class DeptDto {
 	// 필드 지정
-	private int deptno=0;
-	private String dname=null;
-	private String loc=null;
+	private int deptno;
+	private String dname;
+	private String loc;
 	// 디폴트 생성자
 	public DeptDto() {}
-	
+
 	public DeptDto(int deptno, String dname, String loc) {
 		super();
 		this.deptno = deptno;
