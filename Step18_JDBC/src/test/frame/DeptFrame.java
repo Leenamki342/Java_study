@@ -69,7 +69,7 @@ public class DeptFrame extends JFrame implements ActionListener{
 		//회원 목록을 출력할 테이블
 		table=new JTable();
 		//칼럼명을 String[] 에 순서대로 준비하기
-		String[] colNames= {"사원번호","직책","지역"};
+		String[] colNames= {"사번","직책","지역"};
 		//테이블에 연결할 기본 모델 객체
 		model=new DefaultTableModel(colNames, 0) {
 			@Override
