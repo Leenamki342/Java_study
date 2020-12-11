@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,8 +21,9 @@ import javax.swing.table.DefaultTableModel;
 
 import test.member.dao.MemberDao;
 import test.member.dto.MemberDto;
-
-public class MemberFrame extends JFrame implements ActionListener{
+// extends 는 단일 상속이지만 implements 는 여러개의 리스너를 등록할 수 있다.(다중인터페이스)
+public class MemberFrame extends JFrame 
+		implements ActionListener, PropertyChangeListener{
 	//필드 
 	JTextField text_name,  text_addr;
 	DefaultTableModel model;
@@ -62,7 +65,13 @@ public class MemberFrame extends JFrame implements ActionListener{
 		model=new DefaultTableModel(colNames, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return false;
+				// 번호만 수정 불가하게 만드려면 어떻게 코딩해야할까?
+				System.out.println(row+"|"+column);
+				if(column==0) { // 0번째 칼럼은
+					return false; // 수정불가로
+				}else { // 나머지 칼럼은
+					return true; // 수정가능
+				}
 			}
 		};
 		//모델을 테이블에 연결하기
@@ -83,8 +92,12 @@ public class MemberFrame extends JFrame implements ActionListener{
 		topPanel.add(btn_delete);
 		
 		// 회원목록을 주기적으로 업데이트하는 스레드 시작시키기
-		new UpdateThread().start();
-	}
+		// new UpdateThread().start();
+		
+		// 버튼에 액션 리스너 등록하듯이 테이블에 등록하는 리스너이다.
+		// 테이블의 값이 바뀌는지 감시할 리스너 등록하기
+		table.addPropertyChangeListener(this);
+	}// 생성자
 	
 	//회원 목록을 테이블에 출력하는 메소드
 	public void printMember() {
@@ -191,6 +204,30 @@ public class MemberFrame extends JFrame implements ActionListener{
 				// 화면 업데이트
 				printMember();
 			}
+		}
+	}
+	
+	// table 칼럼이 수정중인지 여부
+	boolean isEditing=false;
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		System.out.println("change!");
+		System.out.println(evt.getPropertyName());
+		System.out.println(evt.getOldValue()+"|"+evt.getNewValue());
+		// 만약 table 칼럼에서 발생한 이벤트라면 
+		if(evt.getPropertyName().equals("tableCellEditor")) {
+			if(isEditing) {
+				// 수정된 row 를 읽어와서 DB 에 반영한다.
+				int selectIndex=table.getSelectedRow();
+				int num=(int)model.getValueAt(selectIndex, 0);
+				String name=(String)model.getValueAt(selectIndex, 1);
+				String addr=(String)model.getValueAt(selectIndex, 2);
+				MemberDto dto=new MemberDto(num, name, addr);
+				new MemberDao().update(dto);
+			}
+			// isEditing 의 값을 반대로 바꿔준다. true=>false, false=>true
+			isEditing=!isEditing; // 스위칭
 		}
 	}
 	
