@@ -1,5 +1,6 @@
 package test.frame01;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +20,8 @@ public class MainClass {
 		// 창닫기(X) 를 누르면 자동으로 프로세스가 종료
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// 배치매니저를 사용하지 않겠다.( 절대 좌표에 절대 크기로 배치 )
-		f.setLayout(null);
+		f.setLayout(new BorderLayout());
+		
 		// 버튼 객체 생성
 		JButton btn=new JButton("눌러보셈");
 		// 버튼의 위치와 크기 지정
@@ -33,7 +35,7 @@ public class MainClass {
 		// 프레임에 버튼 추가
 		f.add(btn2);
 		// 프레임을 보이게 한다.
-//		f.setVisible(true);
+		f.setVisible(true);
 //		
 //		btn2.addActionListener(new ActionListener() {
 //			

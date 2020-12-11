@@ -22,8 +22,9 @@ public class MainFrame extends JFrame implements ActionListener{
 		setLayout(new BorderLayout());
 		
 		//텍스트필드와 버튼객체를 만들어서 
-		this.inputText=new JTextField(10); //참조값을 필드에 저장 
+		inputText=new JTextField(10); //참조값을 필드에 저장 
 		JButton sendBtn=new JButton("전송");
+		inputText.setText("안녕");
 		
 		//페널 객체 생성한 다음 
 		JPanel topPanel=new JPanel();
