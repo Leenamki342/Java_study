@@ -1,4 +1,4 @@
-package example4;
+package example5;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
