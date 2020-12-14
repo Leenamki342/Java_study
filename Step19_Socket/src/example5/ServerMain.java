@@ -2,16 +2,25 @@ package example5;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServerMain {
+	// 접속한 클라이언트를 응대하는 스레드 객체의 목록을 담을 필드
+	static List<ServerThread> threadList;
 	
 	public static void main(String[] args) {
+		// ArrayList 객체 생성해서 필드에 저장하기
+		threadList=new ArrayList<>();
+		
+		
 		ServerSocket serverSocket=null;
 		try {
 			//5000 번 통신 port 를 열고 클라이언트의 접속을 기다린다.
@@ -28,6 +37,8 @@ public class ServerMain {
 				// 2. 새로운 스레드를 시작시킨다.
 				ServerThread t=new ServerThread(socket);
 				t.start();
+				// 3. 시작된 스레드의 참조값을 목록에 누적시킨다.
+				threadList.add(t);
 				
 			}
 		}catch(Exception e) {
@@ -35,15 +46,26 @@ public class ServerMain {
 		}
 		System.out.println("ServerMain main 메소드가 종료 됩니다.");
 	}
-	// 스레드 클래스 설계
+	// 스레드 클래스 설계 ( static 을 붙이는 이유는 메인 메소드에서 사용하기 위해서 )
 	static class ServerThread extends Thread{
 		// 필드(클라이언트와 연결된 Socket 객체의 참조값
 		private Socket socket;
+	
+		// 클라이언트에게 문자열을 출력할 객체의 참조값을 저장할 필드
+		private BufferedWriter bw;
 		
 		// 생성자
 		public ServerThread(Socket socket) {
 			// 생성자의 인자로 전달받은 Socket 객체의 참조값을 필드에 저장하기
 			this.socket=socket;
+		}
+		// 인자로 전달되는 문자열을 Socket 객체를 통해서 출력하는 메소드
+		public void broadcast(String msg) throws IOException { // 이미 Exception 처리 되어있어서 throw 가능
+			// 인자로 전달된 문자열을 필드에 저장된 BufferedWriter 객체의 참조값을 이용해서
+			// 클라이언트에게 출력하기
+			bw.write(msg);
+			bw.newLine(); // 개행
+			bw.flush(); // 방출
 		}
 		
 		@Override
@@ -54,20 +76,30 @@ public class ServerMain {
 				BufferedReader br=
 						new BufferedReader(new InputStreamReader (socket.getInputStream()));
 				// 클라이언트에게 문자열을 출력할 객체
-				BufferedWriter bw=
-						new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+				bw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 				// 반복문 돌면서 클라이언트가 전송하는 문자열이 있는지 읽어와 본다.
 				while(true) {
-					
 					// 문자열 한줄이 전송될때 까지 블록킹되는 메소드 
-					String line=br.readLine();
-					
+					String line=br.readLine(); // 클라이언트가 전송한 문자열을 읽어와서
+					// 반복문 돌면서 모든 클라이언트에게 전송하기
+					for(ServerThread tmp:threadList) {
+						tmp.broadcast(line);
+					}
 				}
 			}catch(Exception e) {
-				e.printStackTrace();
+				e.printStackTrace(); // 익셉션 뜬 내용을 출력하는 명령어 굳이 안써도 됨.
+			}finally {
+				try {
+					socket.close();
+				}catch(Exception e1) {}
 			}
-		}
-	}
+			// 현재 여기에 실행순서가 넘어온 스레드의 참조값은? this => 자기를 포함하는 클래스의 참조값인데 
+													//현재 오류난 지점이 스레드 클래스이기 때문에 this 사용
+			// 오류가 나거나 접속 종료된 스레드는 목록에서 제거 해야한다. 제거할 스레드의 참조값을 사용하면 된다.
+			threadList.remove(this);
+		
+		}// run()
+	}// class ServerThread
 }
 
 
